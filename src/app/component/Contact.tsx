@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaGithub, FaInstagram, FaLinkedinIn, FaPaperPlane } from "react-icons/fa";
@@ -26,6 +27,10 @@ const contactSchema = Yup.object({
 
 const Contact = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showStartupNotice = searchParams.get("project") === "startup";
+  const showCloneWorkNotice = searchParams.get("project") === "clone-work";
+  const showGitHubCodeNotice = searchParams.get("code") === "github";
 
   const formik = useFormik<ContactValues>({
     initialValues: {
@@ -139,6 +144,46 @@ const Contact = () => {
             >
               <div className="mx-auto max-w-2xl">
                 <div className="mb-4 text-center md:text-left">
+                  {showGitHubCodeNotice && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4"
+                    >
+                      <h4 className="mb-3 text-sm font-bold text-blue-900">Source Code</h4>
+                      <p className="mb-4 text-xs leading-5 text-blue-800">
+                        The source code for these clone projects is available. Use the contact form below to get the details.
+                      </p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => router.push("/#project")}
+                          className="rounded-md border border-blue-300 bg-white px-3 py-1.5 text-xs font-semibold text-blue-900 transition hover:bg-blue-100"
+                        >
+                          Back to Projects
+                        </button>
+                        <button
+                          className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700"
+                        >
+                          Submit Request
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                  {showStartupNotice || showCloneWorkNotice ? (
+                    <div className="mb-4 rounded-lg border border-black/10 bg-[#f7f7f7] px-4 py-3 text-xs leading-6 text-gray-700">
+                      {showStartupNotice
+                        ? "This startup project is in pre-launch mode and will be visible after launch. For more details, "
+                        : "These clone projects are part of my portfolio. For more details, "}
+                      <a
+                        href="/contact#contact"
+                        className="cursor-pointer font-semibold text-blue-600 underline decoration-blue-500 underline-offset-4 transition hover:text-blue-700"
+                      >
+                        contact us
+                      </a>
+                      .
+                    </div>
+                  ) : null}
                   <h3 className="text-2xl font-bold text-black sm:text-3xl">Send us a Message</h3>
                   <p className="mt-2 text-sm text-gray-600 sm:text-base">
                     Fill out the form below, and we&apos;ll get back to you soon.

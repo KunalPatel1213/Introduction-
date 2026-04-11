@@ -32,9 +32,12 @@ const Header = () => {
           <Link href="/skill" className="transition hover:text-gray-600">
             Skill
           </Link>
-          <a href="#resume" className="transition hover:text-gray-600">
+          <Link href="/project" className="transition hover:text-gray-600">
             Project
-          </a>
+          </Link>
+          <Link href="/achievement" className="transition hover:text-gray-600">
+            Achievement
+          </Link>
           <Link href="/contact" className="transition hover:text-gray-600">
             Contact Us
           </Link>
@@ -69,13 +72,12 @@ const Header = () => {
             <Link href="/skill" className="transition hover:text-gray-600" onClick={() => setIsOpen(false)}>
               Skill
             </Link>
-            <a
-              href="#resume"
-              className="transition hover:text-gray-600"
-              onClick={() => setIsOpen(false)}
-            >
+            <Link href="/project" className="transition hover:text-gray-600" onClick={() => setIsOpen(false)}>
               Project
-            </a>
+            </Link>
+            <Link href="/achievement" className="transition hover:text-gray-600" onClick={() => setIsOpen(false)}>
+              Achievement
+            </Link>
             <Link href="/contact" className="transition hover:text-gray-600" onClick={() => setIsOpen(false)}>
               Contact Us
             </Link>
