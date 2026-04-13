@@ -2,6 +2,8 @@
 
 import {
   SiCss,
+  SiGit,
+  SiGithub,
   SiDocker,
   SiDjango,
   SiHtml5,
@@ -22,6 +24,8 @@ const skills = [
   { label: "Next.js", icon: SiNextdotjs },
   { label: "Django", icon: SiDjango },
   { label: "Django Rest Framework", icon: SiDjango },
+  { label: "Git", icon: SiGit },
+  { label: "GitHub", icon: SiGithub },
   { label: "Docker", icon: SiDocker },
   { label: "MySQL", icon: SiMysql },
 ];
