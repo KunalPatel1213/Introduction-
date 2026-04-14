@@ -1,51 +1,59 @@
 "use client";
 
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import { FaGithub, FaInstagram, FaLinkedinIn, FaPaperPlane } from "react-icons/fa";
 import { motion } from "framer-motion";
 
-type ContactValues = {
-  fullName: string;
-  email: string;
-  subject: string;
-  message: string;
-};
-
-const contactSchema = Yup.object({
-  fullName: Yup.string()
-    .min(2, "Please enter your full name")
-    .required("Full name is required"),
-  email: Yup.string().email("Enter a valid email").required("Email is required"),
-  subject: Yup.string().min(3, "Subject is too short").required("Subject is required"),
-  message: Yup.string()
-    .min(10, "Message must be at least 10 characters")
-    .required("Message is required"),
-});
+const STATICFORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_STATICFORMS_ACCESS_KEY ?? "sf_807fa5a56a97cff677461d32";
 
 const Contact = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const showStartupNotice = searchParams.get("project") === "startup";
   const showCloneWorkNotice = searchParams.get("project") === "clone-work";
   const showGitHubCodeNotice = searchParams.get("code") === "github";
 
-  const formik = useFormik<ContactValues>({
-    initialValues: {
-      fullName: "",
-      email: "",
-      subject: "",
-      message: "",
-    },
-    validationSchema: contactSchema,
-    onSubmit: async (values, { resetForm }) => {
-      resetForm();
-      console.log("Contact form submitted", values);
-      router.push("/contact/thank-you");
-    },
-  });
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("accessKey", STATICFORMS_ACCESS_KEY);
+
+    const email = String(formData.get("email") || "").trim();
+    if (email) {
+      formData.append("replyTo", email);
+    }
+
+    const response = await fetch("https://api.staticforms.xyz/submit", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    const result = await response.json().catch(() => null);
+
+    setIsSubmitting(false);
+
+    if (!response.ok || result?.success === false) {
+      setSubmitError(
+        result?.message || "Unable to send your message right now. Please try again."
+      );
+      return;
+    }
+
+    form.reset();
+    router.push("/contact/thank-you");
+  };
 
   return (
     <section
@@ -190,66 +198,51 @@ const Contact = () => {
                   </p>
                 </div>
 
-                <form className="space-y-4" onSubmit={formik.handleSubmit}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                   <input
                     name="fullName"
                     type="text"
                     placeholder="Full Name"
-                    value={formik.values.fullName}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
+                    required
                     className="w-full rounded-[10px] border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition placeholder:text-gray-400 focus:border-black"
                   />
-                  {formik.touched.fullName && formik.errors.fullName ? (
-                    <p className="-mt-2 text-xs text-black">{formik.errors.fullName}</p>
-                  ) : null}
 
                   <input
                     name="email"
                     type="email"
                     placeholder="Email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
+                    required
                     className="w-full rounded-[10px] border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition placeholder:text-gray-400 focus:border-black"
                   />
-                  {formik.touched.email && formik.errors.email ? (
-                    <p className="-mt-2 text-xs text-black">{formik.errors.email}</p>
-                  ) : null}
 
                   <input
                     name="subject"
                     type="text"
                     placeholder="Subject"
-                    value={formik.values.subject}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
+                    required
                     className="w-full rounded-[10px] border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition placeholder:text-gray-400 focus:border-black"
                   />
-                  {formik.touched.subject && formik.errors.subject ? (
-                    <p className="-mt-2 text-xs text-black">{formik.errors.subject}</p>
-                  ) : null}
 
                   <textarea
                     name="message"
                     rows={5}
                     placeholder="Message"
-                    value={formik.values.message}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
+                    required
                     className="w-full rounded-[10px] border border-black/10 bg-white px-4 py-3 text-sm text-black outline-none transition placeholder:text-gray-400 focus:border-black"
                   />
-                  {formik.touched.message && formik.errors.message ? (
-                    <p className="-mt-2 text-xs text-black">{formik.errors.message}</p>
-                  ) : null}
 
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="inline-flex w-full items-center justify-center gap-2 rounded-[10px] bg-[#0b63f6] px-5 py-3 text-base font-semibold text-white transition hover:bg-[#084ec2]"
                   >
                     <FaPaperPlane className="text-sm" />
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
+
+                  {submitError && (
+                    <p className="text-sm font-medium text-red-600">{submitError}</p>
+                  )}
 
                 </form>
               </div>
