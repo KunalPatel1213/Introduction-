@@ -12,7 +12,10 @@ import {
   SiNextdotjs,
   SiReact,
   SiTailwindcss,
+  SiPostman,
+  SiGreensock,
 } from "react-icons/si";
+import { TbBrandFramerMotion } from "react-icons/tb";
 import { motion } from "framer-motion";
 
 const skills = [
@@ -28,6 +31,9 @@ const skills = [
   { label: "GitHub", icon: SiGithub },
   { label: "Docker", icon: SiDocker },
   { label: "MySQL", icon: SiMysql },
+  { label: "Postman", icon: SiPostman },
+  { label: "Framer Motion", icon: TbBrandFramerMotion },
+  { label: "GSAP", icon: SiGreensock },
 ];
 
 const Skill = () => {
@@ -58,7 +64,11 @@ const Skill = () => {
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-4"
             >
-              <Icon className="text-2xl text-black" />
+              {Icon ? (
+                <Icon className="text-2xl text-black" />
+              ) : (
+                <span className="text-2xl text-black">•</span>
+              )}
               <p className="text-base font-semibold text-black">{label}</p>
             </motion.div>
           ))}
