@@ -17,6 +17,36 @@ type Achievement = {
 
 const achievements: Achievement[] = [
   {
+    title: "Startup Bootcamp Experience",
+    subtitle: "3-Day Intensive Program",
+    description:
+      "Joined a 3-day Startup Bootcamp where I learned the essentials of building a startup from scratch. The program covered how to validate ideas, develop a business model, enter the market, and execute strategies for growth. I gained hands-on experience in pitching, teamwork, and understanding the journey from concept to market launch. This immersive experience inspired me to think entrepreneurially and equipped me with practical skills for real-world execution.",
+    badge: "Bootcamp Graduate",
+    primaryImage: "/startup.png",
+    proofImages: ["/k2.jpeg"],
+    proofLabel: "Startup Bootcamp Proof",
+  },
+  {
+    title: "MUIT CodeThon",
+    subtitle: "Participant",
+    description:
+      "Took part in the prestigious MUIT CodeThon, where I challenged myself with real-world coding problems and collaborated with talented individuals. This experience sharpened my technical skills, fostered creative thinking, and inspired me to pursue excellence in software development. The event was a remarkable journey of learning, innovation, and personal growth.",
+    badge: "Participant",
+    primaryImage: "/muit.png",
+    proofImages: ["/muit.png"],
+    proofLabel: "MUIT CodeThon Proof",
+  },
+  {
+    title: "Khoja Innovation Hackathon",
+    subtitle: "Participant",
+    description:
+      "Participated in the Khoja Innovation Hackathon, where I gained valuable experience, enhanced my problem-solving skills, and explored innovative solutions alongside talented peers. This event broadened my perspective and deepened my passion for technology and teamwork.",
+    badge: "Participant",
+    primaryImage: "/Khoja.png",
+    proofImages: ["/Khoja.png"],
+    proofLabel: "Khoja Hackathon Proof",
+  },
+  {
     title: "Hack with UttarPradesh 2025",
     subtitle: "Participation Certificate",
     description:
