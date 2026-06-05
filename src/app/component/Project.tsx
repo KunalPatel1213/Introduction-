@@ -29,8 +29,8 @@ const startupProjects: ProjectItem[] = [
     title: "Ornix Agency",
     description:
       "This site is an agency platform where multiple clients can connect and grow. For more details,",
-    url: "https://ornix-agency-redisign-zcjd.vercel.app/",
-    video: "/ornixag.mp4",
+    url: "https://marketing-agency-blush-six.vercel.app/",
+    video: "/lg.mp4",
     tag: "Startup Project",
   },
 ];
