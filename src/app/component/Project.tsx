@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
@@ -57,6 +58,17 @@ const cloneProjects: ProjectItem[] = [
     codeUrl: "https://github.com/KunalPatel1213/studio.designClone",
   },
 ];
+
+const spaceFreeProject: ProjectItem = {
+  id: "spacefree",
+  title: "SpaceFree",
+  description:
+    "SpaceFree is a local booking platform for vehicles that would otherwise travel empty. Car, bike, ship, and loader owners can take bookings for return trips and carry goods more efficiently. The backend is not deployed yet, so the full experience is not live, and several APIs are still under testing.",
+  url: "https://spacefree.vercel.app/",
+  video: "/spacefree.mp4",
+  tag: "Featured Project",
+  codeUrl: "/contact?code=github",
+};
 
 const Project = () => {
   const [projectProgress, setProjectProgress] = useState<Record<string, "view" | "code">>({});
@@ -180,6 +192,91 @@ const Project = () => {
               This section is separated from the rest of the app and shows startup projects and clone work in clean cards.
             </p>
           </div>
+
+          <motion.article
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
+            className="overflow-hidden rounded-3xl border border-black/10 bg-[#f8f8f8] shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+          >
+            <div className="grid lg:grid-cols-[1.08fr_0.92fr]">
+              <div className="relative min-h-[260px] overflow-hidden bg-black sm:min-h-[360px] lg:min-h-[420px]">
+                <video
+                  src={spaceFreeProject.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.48)_100%)]" />
+                <div className="absolute left-5 top-5 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/90 backdrop-blur-sm">
+                  {spaceFreeProject.tag}
+                </div>
+                <div className="absolute bottom-5 left-5 right-5 max-w-xl space-y-2 text-white">
+                  <h3 className="text-2xl font-bold sm:text-3xl">{spaceFreeProject.title}</h3>
+                  <p className="max-w-lg text-sm leading-6 text-white/85 sm:text-base">
+                    {spaceFreeProject.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between gap-6 p-5 sm:p-6 lg:p-8">
+                <div className="space-y-5">
+                  <div className="space-y-3">
+                    <h4 className="text-xl font-bold text-black sm:text-2xl">Project Overview</h4>
+                    <p className="text-sm leading-7 text-gray-700 sm:text-base">
+                      Built for local logistics, SpaceFree helps people use empty return trips for booking and goods transport. The live preview is available, but the backend is not deployed yet, so the complete flow is still in progress.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-black/10 bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                        Supported
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-black">
+                        Cars, bikes, ships, and loaders
+                      </p>
+                    </div>
+                    <div className="rounded-2xl border border-black/10 bg-white p-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                        Status
+                      </p>
+                      <p className="mt-2 text-sm font-medium text-black">
+                        Backend not deployed, APIs under testing
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-900">
+                    This is an in-progress build. Some features are limited until the backend is deployed and the testing APIs are finalized.
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={spaceFreeProject.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-lg bg-black px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
+                  >
+                    Visit Live Site
+                    <FaExternalLinkAlt className="text-xs" />
+                  </a>
+                  <Link
+                    href="/contact?code=github"
+                    className="inline-flex items-center gap-2 rounded-lg border border-black/20 bg-white px-4 py-2.5 text-sm font-semibold text-black transition hover:bg-gray-50"
+                  >
+                    Request Code
+                    <FaExternalLinkAlt className="text-xs" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.article>
 
           <div className="space-y-6">
             <div className="space-y-3">

@@ -159,9 +159,9 @@ const Contact = () => {
                       transition={{ duration: 0.3 }}
                       className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4"
                     >
-                      <h4 className="mb-3 text-sm font-bold text-blue-900">Source Code</h4>
+                      <h4 className="mb-3 text-sm font-bold text-blue-900">Source Code Request</h4>
                       <p className="mb-4 text-xs leading-5 text-blue-800">
-                        The source code for these clone projects is available. Use the contact form below to get the details.
+                        The source code details are available. Use the contact form below to request access.
                       </p>
                       <div className="flex gap-2">
                         <button
