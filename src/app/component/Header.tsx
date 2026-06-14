@@ -42,7 +42,7 @@ const Header = () => {
             Contact Us
           </Link>
           <a
-            href="/resume.pdf"
+            href="/Kunal_Patel_Full_Stack_Development.pdf"
             download
             className="rounded-full bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800"
           >
@@ -82,7 +82,7 @@ const Header = () => {
               Contact Us
             </Link>
             <a
-              href="/resume.pdf"
+              href="/Kunal_Patel_Full_Stack_Development.pdf"
               download
               className="rounded-full bg-black px-4 py-2 text-sm font-semibold text-white transition hover:bg-gray-800"
             >
